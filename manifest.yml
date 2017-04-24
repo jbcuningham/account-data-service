@@ -1,0 +1,4 @@
+---
+applications:
+- name: client-data
+  path: target/client-data-service-0.0.1-SNAPSHOT.jar
