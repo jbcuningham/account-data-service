@@ -1,0 +1,4 @@
+---
+applications:
+- name: account-data
+  path: target/account-data-service-0.0.1-SNAPSHOT.jar
