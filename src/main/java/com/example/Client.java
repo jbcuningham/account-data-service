@@ -1,11 +1,14 @@
 package com.example;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Client {
 
     @Id
@@ -19,11 +22,15 @@ public class Client {
     private String address;
 
     public Client() {
+
     }
 
     public Client(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Client(String firstName) {
     }
 
     public Long getId() {

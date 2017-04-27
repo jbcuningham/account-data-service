@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-@SpringUI
+@SpringUI( path = "ui/clients")
 public class ClientUI extends UI {
 
 //        setContent(new Button("Click me", e ->
