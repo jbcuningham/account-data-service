@@ -2,13 +2,18 @@ package com.example;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.annotation.Bean;
+import org.springframework.integration.annotation.MessageEndpoint;
+import org.springframework.integration.annotation.ServiceActivator;
 
-//@EnableBinding(Sink.class)
+@EnableBinding(Sink.class)
 @EnableDiscoveryClient
 @SpringBootApplication
 public class ClientDataServiceApplication {
@@ -20,21 +25,21 @@ public class ClientDataServiceApplication {
         SpringApplication.run(ClientDataServiceApplication.class, args);
     }
 
-//    @MessageEndpoint
-//    class ClientProcessor {
-//
-//        private final ClientRepository clientRepository;
-//
-//        @ServiceActivator(inputChannel = "input")
-//        public void acceptNewClient(String firstName) {
-//            this.clientRepository.save(new Client(firstName));
-//        }
-//
-//        @Autowired
-//        public ClientProcessor(ClientRepository clientRepository) {
-//            this.clientRepository = clientRepository;
-//        }
-//    }
+    @MessageEndpoint
+    class ClientProcessor {
+
+        private final ClientRepository clientRepository;
+
+        @ServiceActivator(inputChannel = "input")
+        public void acceptNewClient(String firstName) {
+            this.clientRepository.save(new Client(firstName));
+        }
+
+        @Autowired
+        public ClientProcessor(ClientRepository clientRepository) {
+            this.clientRepository = clientRepository;
+        }
+    }
 
     @Bean
     public CommandLineRunner loadClientsData(ClientRepository repository) {
@@ -63,5 +68,7 @@ public class ClientDataServiceApplication {
     }
 
 }
+
+
 
 
